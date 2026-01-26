@@ -1,0 +1,12 @@
+[project]
+name = "aaa-python-final-task-tmp"
+version = "0.1.0"
+description = "Telegram bot for tic tac toe game."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pytest>=9.0.2",
+    "pytest-asyncio>=1.3.0",
+    "pytest-cov>=7.0.0",
+    "python-telegram-bot>=22.6",
+]
