@@ -1,5 +1,5 @@
 [project]
-name = "aaa-python-final-task-tmp"
+name = "aaa-python-final-task"
 version = "0.1.0"
 description = "Telegram bot for tic tac toe game."
 readme = "README.md"
