@@ -146,10 +146,10 @@ async def test_game_win():
     context = AsyncMock()
     field = [["X", "O", "O"], ["O", "X", "X"], ["O", "X", "."]]
     context.user_data = {"keyboard_state": field}
-    context.bot.send_message = AsyncMock()
+    update.callback_query.edit_message_text = AsyncMock()
     gt_game_status = 1
     game_status = await game(update, context)
-    call_kwargs = context.bot.send_message.call_args.kwargs
+    call_kwargs = update.callback_query.edit_message_text.call_args.kwargs
     assert gt_game_status == game_status
     assert (
         call_kwargs["text"]
@@ -166,9 +166,9 @@ async def test_game_continue():
     context = AsyncMock()
     field = [["X", ".", "O"], ["O", "X", "."], ["O", "X", "."]]
     context.user_data = {"keyboard_state": field}
-    context.bot.send_message = AsyncMock()
+    update.callback_query.edit_message_text = AsyncMock()
     gt_game_status = 0
     game_status = await game(update, context)
-    call_kwargs = context.bot.send_message.call_args.kwargs
+    call_kwargs = update.callback_query.edit_message_text.call_args.kwargs
     assert gt_game_status == game_status
     assert call_kwargs["text"] == "Nice turn! Lets continue"

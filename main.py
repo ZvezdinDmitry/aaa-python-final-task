@@ -203,7 +203,10 @@ def check_game_status(
 
 async def game(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Main processing of the game"""
-    row, col = map(int, list(update.callback_query.data))
+    query = update.callback_query
+    await query.answer()
+    row, col = map(int, list(query.data))
+
     field = context.user_data["keyboard_state"]
     game_status = CONTINUE_GAME
     if field[row][col] == FREE_SPACE:
@@ -217,10 +220,10 @@ async def game(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     else:
         text = "Sorry :(, this cell is already occupied. Choose another one."
 
+    context.user_data["keyboard_state"] = field
     field = generate_keyboard(field)
     reply_markup = InlineKeyboardMarkup(field)
-    await context.bot.send_message(
-        chat_id=update.effective_chat.id,
+    await query.edit_message_text(
         text=text,
         reply_markup=reply_markup,
     )
